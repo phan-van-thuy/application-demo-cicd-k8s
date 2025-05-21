@@ -1,0 +1,6 @@
+{
+    "require": {
+        "aws/aws-sdk-php": "^3.33",
+        "bitverse/identicon": "^1.1"
+    }
+}

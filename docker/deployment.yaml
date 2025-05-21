@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  namespace: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      imagePullSecrets:
+      - name: hcm-registry
+      containers:
+      - name: demo
+        image: IMAGE
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: data
+            mountPath: /var/www/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pv-demo
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  namespace: demo
+spec:
+  selector:
+    app: demo
+  ports:
+  - port: 8080
+    targetPort: 80
+  type: NodePort

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: server
+    restart: always
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-net
+
+  agent:
+    build:
+      context: ./agent/
+      dockerfile: Dockerfile
+    container_name: jenkins-agent
+    environment:
+      - JENKINS_URL=http://server:8080
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent/
+      - JENKINS_SECRET=e5a47c705580b037f73433abb9ff0719dac284d126d7014f444b71c1eb3f32e4 ##secret when create Node Agent on Jenkins Server
+      - JENKINS_NAME=agent-1  
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - jenkins
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
