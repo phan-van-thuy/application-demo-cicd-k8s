@@ -14,11 +14,13 @@
 
 * Some docker compose commands to create container
     #### Create container
+    ```bash
     docker-compose up -d
-
+    ```
     #### check container running or not
+    ```bash
     docker ps -a
-  
+    ```
     ![alt text](image/image.png)
 
     #### Login Jenkins server and create Agent Node
@@ -57,10 +59,13 @@ Fill in the following information
 
 Detailed configuration
 Triggers
+
 ![alt text](image/Triggers.png)
 Generate secret for config webhook on gitlab
+
 ![alt text](image/secret.png)
 Pipeline
+
 ![alt text](image/Pipeline.png)
 
 3. Create repository gitlab and setup webhook connect to jenkins project
