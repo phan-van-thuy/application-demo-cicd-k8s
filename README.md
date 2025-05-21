@@ -18,19 +18,31 @@
 
     #### check container running or not
     docker ps -a
+  
     ![alt text](image/image.png)
 
     #### Login Jenkins server and create Agent Node
     Create node agent-2
+  
     ![alt text](image/image-1.png)
+  
     copy secret for agent node JENKINS_SECRET on agent/Dockerfile
     ![alt text](image/image-2.png)
+  
     set secret on docker compose and recreate container agent
     ![alt text](image/image-3.png)
+  
     #### Remove container and recreate
-    docker rm -f ID-CONTAINER 
+    ##### Remove container agent current
+    ```bash
+      docker rm -f ID-CONTAINER
+    ```
+    ##### Build container Agent Jenkins using command
+    ```bash
     docker-compose up -d
+    ```
     check agent conntecing server
+  
     ![alt text](image/image-4.png)
 
 2. Create Project Pipeline on Jenkins for CI/CD
